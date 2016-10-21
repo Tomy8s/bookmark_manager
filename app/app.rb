@@ -30,8 +30,8 @@ class BookmarkManager < Sinatra::Base
       if !!@user.id
         session[:user_id] = @user.id
         redirect '/links'
-      else
-        flash.now[:error] = 'Passwords do not match. Please try again' 
+      elsif params[:password] != params[:password_confirmation]
+        flash.now[:error] = 'Passwords do not match. Please try again.' 
         erb :'user/sign-up'
       end
   end

@@ -21,4 +21,21 @@ feature "user sign-up" do
     expect(current_path).to eq '/sign-up'
     expect(page).to have_content 'Passwords do not match. Please try again'
   end
+
+  scenario "not redirecting if invalid email format" do
+    visit '/sign-up'
+    fill_in :email, with: 'batman'
+    fill_in :password, with: 'robin'
+    fill_in :password_confirmation, with: 'robin'
+    click_button "ok"
+    expect(current_path).to eq '/sign-up'
+  end
+
+  scenario "not redirecting if no email given" do
+    visit '/sign-up'
+    fill_in :password, with: 'robin'
+    fill_in :password_confirmation, with: 'robin'
+    click_button "ok"
+    expect(current_path).to eq '/sign-up'
+  end
 end

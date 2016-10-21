@@ -13,11 +13,10 @@ class User
 
   include DataMapper::Resource
 
+  validates_confirmation_of :password
+  validates_presence_of :email, :password
+
   property :id, Serial
-  property :email, String
+  property :email, String, required: true, unique: true, format: :email_address
   property :password_digest, Text
-
-
-validates_confirmation_of :password
-
 end
