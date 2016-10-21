@@ -38,4 +38,19 @@ feature "user sign-up" do
     click_button "ok"
     expect(current_path).to eq '/sign-up'
   end
+
+  scenario "not adding emails already in the database" do
+    visit '/sign-up'
+    fill_in :email, with: 'batman@hotmail.com'
+    fill_in :password, with: 'robin'
+    fill_in :password_confirmation, with: 'robin'
+    click_button "ok"
+    visit '/sign-up'
+    fill_in :email, with: 'batman@hotmail.com'
+    fill_in :password, with: 'robin'
+    fill_in :password_confirmation, with: 'robin'
+    click_button "ok"
+    expect(current_path).to eq '/sign-up'
+    expect(page).to have_content 'Email is already taken'
+  end
 end

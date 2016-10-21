@@ -27,11 +27,11 @@ class BookmarkManager < Sinatra::Base
 
   post '/sign-up' do
       @user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
-      if !!@user.id
+      if @user.id
         session[:user_id] = @user.id
         redirect '/links'
-      elsif params[:password] != params[:password_confirmation]
-        flash.now[:error] = 'Passwords do not match. Please try again.' 
+      elsif
+        flash.now[:error] = @user.errors.full_messages 
         erb :'user/sign-up'
       end
   end
