@@ -15,7 +15,7 @@ class User
 
   validates_confirmation_of :password, message: 'Passwords do not match. Please try again'
   validates_presence_of :email, :password, message: 'Please enter a valid email address'
-  validates_uniqueness_of :email#, message: 'This email is already registered'
+  validates_uniqueness_of :email
 
   property :id, Serial
   property :email, String, required: true, unique: true, format: :email_address
